@@ -2,6 +2,7 @@ using MachineController.Controls;
 using MachineController.Functions;
 using MachineController.Objects;
 using Microsoft.VisualBasic;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -16,14 +17,16 @@ namespace MachineController
     {
         public ConnectToMachineSingleThread? con = null;
 
-        System.Windows.Forms.Timer tmrSendContinuousCommands;
-        System.Windows.Forms.Timer tmrBlinkTemperatures;
+        private readonly System.Windows.Forms.Timer tmrSendContinuousCommands;
+        private readonly System.Windows.Forms.Timer tmrBlinkTemperatures;
 
         private bool IsConnected = false;
         private bool IsExtruderOn = false;
         private bool IsHeatedBedOn = false;
         private bool IsExtruderAtTemperature = false;
         private bool IsHeatedBedAtTemperature = false;
+
+        #region --- Initialization ---
 
         public Form1()
         {
@@ -48,7 +51,9 @@ namespace MachineController
             tmrBlinkTemperatures.Tick += TmrBlinkTemperatures_Tick;
         }
 
-        #region --- Timers Events ---
+        #endregion --- Initialization ---
+
+        #region --- Timer Events ---
 
         private void TmrSendContinuousCommands_Tick(object? sender, EventArgs e)
         {
@@ -71,26 +76,14 @@ namespace MachineController
                 else
                     pnlHeatedBed.BackColor = Color.Red;
             }
+
+            string text = $@"ok T:{DateTime.Now.Second}.00 /0.00 B:22.00 /0.00 @:0 B@:0";
+            temperatureChart1.SetHeatedBedTemperature(DateTime.Now.Second, DateTime.Now.Second);
         }
-        #endregion
 
-        #region --- Methods ---
+        #endregion 
 
-        private void HandleFormControls()
-        {
-
-            // Handle Controls
-            foreach (Control control in this.Controls)
-            {
-                if (control.Equals(grpBoxInitialization)) continue; // Skip Initialization Controls
-                if (IsConnected)
-                    control.ForeColor = Color.Black;
-                else
-                    control.ForeColor = Color.LightGray;
-
-                control.Enabled = IsConnected;
-            }
-        }
+        #region --- Connection Methods ---
 
         public async void Connect()
         {
@@ -105,11 +98,11 @@ namespace MachineController
                         if (lstViewResponse.InvokeRequired)
                             lstViewResponse.Invoke((MethodInvoker)delegate
                             {
-                                Recieve(text);
+                                PostProcessResponse(text);
                             });
                         else
                         {
-                            Recieve(text);
+                            PostProcessResponse(text);
                         }
                     })
                     {
@@ -151,7 +144,6 @@ namespace MachineController
                 // Handle Controls
                 HandleFormControls();
                 tabControl1.SelectedIndex = 1;
-
             }
             catch (Exception ex)
             {
@@ -212,10 +204,25 @@ namespace MachineController
                 GenericFunctions.ShowErrorMessage(ex);
             }
         }
-        private void Recieve(string text)
+
+        public void PrintGCodeFile(string filePath)
         {
-            PostProcessResponse(text);
+            if (IsConnected)
+            {
+                con.SendDataToMachine($"M23 {filePath}");
+                con.SendDataToMachine("M24"); // Start printing
+
+                AddLineToListView("[info]", $"Printing from {filePath}", Color.DarkGray);
+            }
+            else
+            {
+                MessageBox.Show("Please connect to the machine first.", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        #endregion --- Connection Methods ---
+
+        #region --- GCode Processing Methods ---
 
         private void PreProcessCommand(string text)
         {
@@ -224,8 +231,10 @@ namespace MachineController
             {
                 case var _ when code[0].Equals("G0"):
                     break;
+
                 case var _ when code[0].Equals("G1"):
                     break;
+
                 default:
                     break;
             }
@@ -260,7 +269,6 @@ namespace MachineController
             if (text.StartsWith("ok", StringComparison.CurrentCultureIgnoreCase))
             {
                 textColor = Color.Green;
-
             }
 
             if (text.StartsWith("error", StringComparison.CurrentCultureIgnoreCase))
@@ -320,6 +328,7 @@ namespace MachineController
                                 lblXPosition.Text = xParts[1];
                             }
                             break;
+
                         case var _ when part.StartsWith("y:", StringComparison.CurrentCultureIgnoreCase):
                             string[] yParts = part.Split(':');
                             if (yParts.Length == 2)
@@ -327,6 +336,7 @@ namespace MachineController
                                 lblYPosition.Text = yParts[1];
                             }
                             break;
+
                         case var _ when part.StartsWith("z:", StringComparison.CurrentCultureIgnoreCase):
                             string[] zParts = part.Split(':');
                             if (zParts.Length == 2)
@@ -334,6 +344,7 @@ namespace MachineController
                                 lblZPosition.Text = zParts[1];
                             }
                             break;
+
                         case var _ when part.StartsWith("e:", StringComparison.CurrentCultureIgnoreCase):
                             string[] eParts = part.Split(':');
                             if (eParts.Length == 2)
@@ -341,6 +352,7 @@ namespace MachineController
                                 // lblExtruderPosition.Text = eParts[1];
                             }
                             break;
+
                         case var _ when part.StartsWith("count", StringComparison.CurrentCultureIgnoreCase):
                             break;
 
@@ -374,40 +386,9 @@ namespace MachineController
                 $"VALUES ('RECV', '{text}', '{DateTime.Now}')");
         }
 
-        private void AddLineToListView(string type, string response, Color forecolor)
-        {
-            ListViewItem listViewItem = new ListViewItem();
-            ListViewItem.ListViewSubItem listViewSubItem = new ListViewItem.ListViewSubItem();
+        #endregion --- GCode Processing Methods ---
 
-            listViewItem.Text = type;
-            listViewItem.ForeColor = forecolor;
-            listViewItem.BackColor = Color.White;
-            listViewItem.UseItemStyleForSubItems = false;
-
-            listViewSubItem.Text = response;
-            listViewSubItem.ForeColor = forecolor;
-            listViewSubItem.BackColor = Color.White;
-
-            lstViewResponse.Items.Add(listViewItem);
-            listViewItem.SubItems.Add(listViewSubItem);
-
-            lstViewResponse.TopItem = lstViewResponse.Items[lstViewResponse.Items.Count - 1];
-        }
-
-        public void Print(string filePath)
-        {
-            if (IsConnected)
-            {
-                con.SendDataToMachine($"M23 {filePath}");
-                con.SendDataToMachine("M24"); // Start printing
-
-                AddLineToListView("[info]", $"Printing from {filePath}", Color.DarkGray);
-            }
-            else
-            {
-                MessageBox.Show("Please connect to the machine first.", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        #region --- General Methods ---
 
         private void LoadSettings()
         {
@@ -500,8 +481,17 @@ namespace MachineController
                 dgvGCodeLibrary.Columns["materialused"].Visible = false;
                 dgvGCodeLibrary.Columns["filename"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+                // Version
+                toolStripStatusLabel2.Text = System.Windows.Forms.Application.ProductVersion;
+                //toolStripStatusLabel2.Text = displayableVersion;
+
+                temperatureChart1.Clear();
+
                 // Handle Controls
                 HandleFormControls();
+
+                // Handle Tooltips
+                HandleToolTips();
             }
             catch (Exception ex)
             {
@@ -540,7 +530,56 @@ namespace MachineController
             }
         }
 
-        #endregion
+        private void HandleFormControls()
+        {
+            // Handle Controls
+            foreach (Control control in this.Controls)
+            {
+                if (control.Equals(grpBoxInitialization)) continue; // Skip Initialization Controls
+                if (IsConnected)
+                    control.ForeColor = Color.Black;
+                else
+                    control.ForeColor = Color.LightGray;
+
+                control.Enabled = IsConnected;
+            }
+        }
+
+        private void HandleToolTips()
+        {
+            // Set tooltips for controls
+            System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+            toolTip.SetToolTip(btnConnect, "Initialize a serial connection to a machine.");
+            toolTip.SetToolTip(btnPrint, "Execute a G-Code file on the attached machine.");
+            toolTip.SetToolTip(btnPause, "Pause the current print job.");
+            toolTip.SetToolTip(btnRefresh, "Refresh COM ports.");
+            toolTip.SetToolTip(cmbBoxPort, "Select COM port.");
+            toolTip.SetToolTip(cmbBoxBaud, "Select the baud rate for transmission (needs to match the machines configuration).");
+            toolTip.SetToolTip(chkVerbose, "Display all serial communication to and from the machine.");
+            toolTip.SetToolTip(grpBoxInitialization, "Initialization commands.");
+        }
+
+        private void AddLineToListView(string type, string response, Color forecolor)
+        {
+            ListViewItem listViewItem = new ListViewItem();
+            ListViewItem.ListViewSubItem listViewSubItem = new ListViewItem.ListViewSubItem();
+
+            listViewItem.Text = type;
+            listViewItem.ForeColor = forecolor;
+            listViewItem.BackColor = Color.White;
+            listViewItem.UseItemStyleForSubItems = false;
+
+            listViewSubItem.Text = response;
+            listViewSubItem.ForeColor = forecolor;
+            listViewSubItem.BackColor = Color.White;
+
+            lstViewResponse.Items.Add(listViewItem);
+            listViewItem.SubItems.Add(listViewSubItem);
+
+            lstViewResponse.TopItem = lstViewResponse.Items[lstViewResponse.Items.Count - 1];
+        }
+
+        #endregion --- General Methods ---
 
         #region --- Main Form ---
 
@@ -565,7 +604,7 @@ namespace MachineController
 
         #endregion --- Main Form ---
 
-        #region --- Initialization ---
+        #region --- Group Box [Initialization} ---
 
         private void BtnConnect_Click(object sender, EventArgs e)
         {
@@ -582,7 +621,7 @@ namespace MachineController
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Print(openFileDialog.FileName);
+                PrintGCodeFile(openFileDialog.FileName);
             }
         }
 
@@ -596,9 +635,9 @@ namespace MachineController
             cmbBoxPort.DataSource = SerialConnection.GetComPorts();
         }
 
-        #endregion --- Initialization ---
+        #endregion --- Group Box [Initialization} ---
 
-        #region --- Position Readout ---
+        #region --- Group Box [Position Readout] ---
 
         private void BtnZeroX_Click(object sender, EventArgs e)
         {
@@ -615,9 +654,9 @@ namespace MachineController
             con.Send($@"G29 X0");
         }
 
-        #endregion --- Position Readout ---
+        #endregion --- Group Box [Position Readout] ---
 
-        #region --- Accessory Control ---
+        #region --- Group Box [Accessory Control] ---
 
         private void BtnExtruderOn_Click(object sender, EventArgs e)
         {
@@ -674,9 +713,9 @@ namespace MachineController
             BtnHeatedBedOn_Click(sender, e);
         }
 
-        #endregion --- Accessory Control ---
+        #endregion --- Group Box [Accessory Control] ---
 
-        #region --- Custom Commands ---
+        #region --- Group Box [Custom Commands] ---
 
         private void BtnDisableMotors_Click(object sender, EventArgs e)
         {
@@ -698,7 +737,7 @@ namespace MachineController
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Print(openFileDialog.FileName);
+                PrintGCodeFile(openFileDialog.FileName);
             }
         }
 
@@ -728,9 +767,9 @@ namespace MachineController
             Send("M27"); // M27 - Report SD print status
         }
 
-        #endregion --- Custom Commands ---
+        #endregion --- Group Box [Custom Commands] ---
 
-        #region --- Override Settings ---
+        #region --- Group Box [Override Settings] ---
 
         private void NudMovement_ValueChanged(object sender, EventArgs e)
         {
@@ -756,9 +795,9 @@ namespace MachineController
             Send("M221 S" + nubExtrusion.Value); // M221 - Set extrusion speed override
         }
 
-        #endregion --- Override Settings ---
+        #endregion --- Group Box [Override Settings] ---
 
-        #region --- Tabs [GCode Library] ---
+        #region --- Tab [GCode Library] ---
 
         private void BtnAddToLibrary_Click(object sender, EventArgs e)
         {
@@ -822,9 +861,9 @@ namespace MachineController
             MessageBox.Show("All your base are belongs to us!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        #endregion --- Tabs [GCode Library] ---
+        #endregion --- Tab [GCode Library] ---
 
-        #region --- Tabs [Communication] ---
+        #region --- Tab [Communication] ---
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
@@ -925,18 +964,18 @@ namespace MachineController
             txtBoxSend.Text = cmbGCodes.SelectedItem?.ToString() ?? string.Empty;
         }
 
-        #endregion --- Tabs [Communication] ---
+        #endregion --- Tab [Communication] ---
 
-        #region --- Tabs [Temperature Plot] ---
+        #region --- Tab [Temperature Plot] ---
 
         private void BtnClearPlot_Click(object sender, EventArgs e)
         {
-            temperatureChart1.PlotTemperature();
+            temperatureChart1.Clear();
         }
 
-        #endregion --- Tabs [Temperature Plot] ---
+        #endregion --- Tab [Temperature Plot] ---
 
-        #region --- Tabs [Jog Controls] ---
+        #region --- Tab [Jog Controls] ---
 
         private void BtnNegXPosY100(object sender, EventArgs e)
         {
@@ -1007,6 +1046,71 @@ namespace MachineController
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
-        #endregion --- Tabs [Jog Controls] ---
+        #endregion --- Tab [Jog Controls] ---
+
+        private void BtnDeploy_Click(object sender, EventArgs e)
+        {
+            // Deploy and activate the probe
+            con.Send("M401");
+
+            // Enable BLTouch High Speed Mode
+            con.Send("M401 S1");
+
+            // Deploy the probe and remain in place
+            con.Send("M401 R1");
+        }
+
+        private void BtnStow_Click(object sender, EventArgs e)
+        {
+            // Deactivate and stow the probe
+            con.Send("M402");
+
+            // Deactivate and stow, remaining in place
+            con.Send("M402 R1");
+        }
+
+        private void btnSetXHome_Click(object sender, EventArgs e)
+        {
+            con.Send($@"M206 X{txtBoxXHomeOffset.Text}");
+        }
+
+        private void btnSetYHome_Click(object sender, EventArgs e)
+        {
+            con.Send($@"M206 Y{txtBoxYHomeOffset.Text}");
+        }
+
+        private void btnSetZHome_Click(object sender, EventArgs e)
+        {
+            con.Send($@"M206 Z{txtBoxZHomeOffset.Text}");
+        }
+
+        private void BtnRestoreSettings_Click(object sender, EventArgs e)
+        {
+            con.Send($@"M501");
+        }
+
+        private void BtnSaveSettings_Click(object sender, EventArgs e)
+        {
+            con.Send($@"M500");
+        }
+
+        private void BtnFactoryReset_Click(object sender, EventArgs e)
+        {
+            //if (DialogResult.Yes == MessageBox.Show("This will reset all settings to factory defaults. Are you sure you want to continue?",
+            //    "Factory Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            //{
+            //    con.Send($@"M502");
+            //    con.Send($@"M500");
+            //};
+        }
+
+        private void BtnSetPinState_Click(object sender, EventArgs e)
+        {
+            // Set the pin state to 1 (on)
+            //con.Send($@"M42 P{} S1");
+
+            //// Set the pin state to 128 (PWM)
+            //con.Send($@"M42 P{} S128");
+        }
     }
 }

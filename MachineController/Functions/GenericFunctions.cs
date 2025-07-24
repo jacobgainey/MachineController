@@ -49,6 +49,11 @@ namespace MachineController.Functions
             return "unknown"; // Default return value if no lines are read or no build time was found
         }
 
+        internal static void ShowWarningMessage(string v1, string v2, MessageBoxButtons yesNo, MessageBoxIcon warning)
+        {
+            throw new NotImplementedException();
+        }
+
         //public static string ParseMaterialUsed(string filePath)
         //{
         //    // TODO: Implement logic to parse the material used from the file at the given filePath.

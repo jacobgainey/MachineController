@@ -28,23 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)this).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // TemperatureChart
             // 
-            pictureBox1.BackColor = SystemColors.ControlDark;
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(100, 50);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            BackColor = SystemColors.AppWorkspace;
+            ((System.ComponentModel.ISupportInitialize)this).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private PictureBox pictureBox1;
     }
 }

@@ -58,7 +58,7 @@
             btnSend = new Button();
             txtBoxSend = new TextBox();
             tabPage3 = new TabPage();
-            temperatureChart1 = new MachineController.Controls.TemperatureChart();
+            temperatureChart1 = new Controls.TemperatureChart();
             btnClearPlot = new Button();
             chkMonitorTemperatures = new CheckBox();
             tabPage4 = new TabPage();
@@ -129,6 +129,37 @@
             btnHomeX = new Button();
             btnHomeZ = new Button();
             btnHomeY = new Button();
+            tabPage5 = new TabPage();
+            grpBoxPins = new GroupBox();
+            label19 = new Label();
+            label17 = new Label();
+            label14 = new Label();
+            label11 = new Label();
+            numericUpDown5 = new NumericUpDown();
+            label8 = new Label();
+            numericUpDown4 = new NumericUpDown();
+            label7 = new Label();
+            numericUpDown3 = new NumericUpDown();
+            numericUpDown2 = new NumericUpDown();
+            button3 = new Button();
+            numericUpDown1 = new NumericUpDown();
+            radioButton1 = new RadioButton();
+            radSetPinHigh = new RadioButton();
+            btnSetPinState = new Button();
+            grpMachineSettings = new GroupBox();
+            btnFactoryReset = new Button();
+            btnSaveSettings = new Button();
+            btnRestoreSettings = new Button();
+            grpBoxSetHomeOffsets = new GroupBox();
+            txtBoxZHomeOffset = new TextBox();
+            txtBoxYHomeOffset = new TextBox();
+            txtBoxXHomeOffset = new TextBox();
+            button2 = new Button();
+            button1 = new Button();
+            btnSetXHome = new Button();
+            grpBoxBLTouch = new GroupBox();
+            btnDeploy = new Button();
+            btnStow = new Button();
             pnlWelcome = new Panel();
             label6 = new Label();
             lblWelcome = new Label();
@@ -187,6 +218,7 @@
             nudMovement = new NumericUpDown();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
+            toolStripStatusLabel2 = new ToolStripStatusLabel();
             grpBoxPrintTime = new GroupBox();
             lblPrintTimer = new Label();
             grpBoxInitialization.SuspendLayout();
@@ -203,6 +235,16 @@
             ((System.ComponentModel.ISupportInitialize)nudExtruder).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudZAxis).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudXYAxis).BeginInit();
+            tabPage5.SuspendLayout();
+            grpBoxPins.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            grpMachineSettings.SuspendLayout();
+            grpBoxSetHomeOffsets.SuspendLayout();
+            grpBoxBLTouch.SuspendLayout();
             pnlWelcome.SuspendLayout();
             grpBoxPositionReadout.SuspendLayout();
             panel3.SuspendLayout();
@@ -357,12 +399,13 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
+            tabControl1.Controls.Add(tabPage5);
             tabControl1.Enabled = false;
             tabControl1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabControl1.Location = new Point(8, 127);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(436, 404);
+            tabControl1.Size = new Size(574, 404);
             tabControl1.TabIndex = 1;
             tabControl1.Visible = false;
             tabControl1.KeyDown += TabControl1_KeyDown;
@@ -378,7 +421,7 @@
             tabPage1.Location = new Point(4, 22);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(428, 378);
+            tabPage1.Size = new Size(566, 378);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "G-Code Library";
             tabPage1.UseVisualStyleBackColor = true;
@@ -424,7 +467,7 @@
             dgvGCodeLibrary.Location = new Point(3, 3);
             dgvGCodeLibrary.Name = "dgvGCodeLibrary";
             dgvGCodeLibrary.ReadOnly = true;
-            dgvGCodeLibrary.Size = new Size(418, 344);
+            dgvGCodeLibrary.Size = new Size(556, 344);
             dgvGCodeLibrary.TabIndex = 0;
             // 
             // tabPage2
@@ -442,7 +485,7 @@
             tabPage2.Location = new Point(4, 22);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(428, 378);
+            tabPage2.Size = new Size(566, 378);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Communication";
             tabPage2.UseVisualStyleBackColor = true;
@@ -459,7 +502,7 @@
             lstViewResponse.LabelWrap = false;
             lstViewResponse.Location = new Point(3, 3);
             lstViewResponse.Name = "lstViewResponse";
-            lstViewResponse.Size = new Size(418, 313);
+            lstViewResponse.Size = new Size(556, 313);
             lstViewResponse.TabIndex = 10;
             lstViewResponse.UseCompatibleStateImageBehavior = false;
             lstViewResponse.View = View.Details;
@@ -553,24 +596,25 @@
             tabPage3.Location = new Point(4, 22);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(428, 378);
+            tabPage3.Size = new Size(566, 378);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Temperature Plot";
             tabPage3.UseVisualStyleBackColor = true;
             // 
             // temperatureChart1
             // 
+            temperatureChart1.BackColor = SystemColors.AppWorkspace;
             temperatureChart1.Dock = DockStyle.Top;
             temperatureChart1.Location = new Point(3, 3);
             temperatureChart1.Name = "temperatureChart1";
-            temperatureChart1.Size = new Size(418, 350);
+            temperatureChart1.Size = new Size(556, 344);
             temperatureChart1.TabIndex = 3;
             temperatureChart1.TabStop = false;
             temperatureChart1.Text = "temperatureChart1";
             // 
             // btnClearPlot
             // 
-            btnClearPlot.Location = new Point(236, 356);
+            btnClearPlot.Location = new Point(236, 353);
             btnClearPlot.Name = "btnClearPlot";
             btnClearPlot.Size = new Size(84, 20);
             btnClearPlot.TabIndex = 2;
@@ -581,7 +625,7 @@
             // chkMonitorTemperatures
             // 
             chkMonitorTemperatures.AutoSize = true;
-            chkMonitorTemperatures.Location = new Point(101, 359);
+            chkMonitorTemperatures.Location = new Point(101, 356);
             chkMonitorTemperatures.Name = "chkMonitorTemperatures";
             chkMonitorTemperatures.Size = new Size(129, 17);
             chkMonitorTemperatures.TabIndex = 1;
@@ -601,7 +645,7 @@
             tabPage4.Location = new Point(4, 22);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(428, 378);
+            tabPage4.Size = new Size(566, 378);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Jog Controls";
             tabPage4.UseVisualStyleBackColor = true;
@@ -671,7 +715,7 @@
             groupBox2.Font = new Font("Microsoft Sans Serif", 8.25F);
             groupBox2.Location = new Point(3, 3);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(418, 270);
+            groupBox2.Size = new Size(556, 270);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
             groupBox2.Text = "Control";
@@ -1049,7 +1093,7 @@
             // 
             btnPosX100.BackColor = Color.Silver;
             btnPosX100.Cursor = Cursors.PanEast;
-            btnPosX100.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnPosX100.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnPosX100.Location = new Point(215, 51);
             btnPosX100.Name = "btnPosX100";
             btnPosX100.Size = new Size(21, 173);
@@ -1062,7 +1106,7 @@
             // 
             btnPosX10.BackColor = Color.DarkGray;
             btnPosX10.Cursor = Cursors.PanEast;
-            btnPosX10.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnPosX10.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnPosX10.Location = new Point(194, 73);
             btnPosX10.Name = "btnPosX10";
             btnPosX10.Size = new Size(21, 130);
@@ -1075,7 +1119,7 @@
             // 
             button18.BackColor = Color.Gray;
             button18.Cursor = Cursors.PanEast;
-            button18.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            button18.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             button18.Location = new Point(172, 94);
             button18.Name = "button18";
             button18.Size = new Size(21, 87);
@@ -1087,7 +1131,7 @@
             // 
             btnPosX1.BackColor = Color.DimGray;
             btnPosX1.Cursor = Cursors.PanEast;
-            btnPosX1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnPosX1.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnPosX1.ForeColor = SystemColors.ControlText;
             btnPosX1.Location = new Point(151, 116);
             btnPosX1.Name = "btnPosX1";
@@ -1101,7 +1145,7 @@
             // 
             button16.BackColor = Color.DimGray;
             button16.Cursor = Cursors.PanWest;
-            button16.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            button16.Font = new Font("Microsoft Yi Baiti", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button16.Location = new Point(87, 116);
             button16.Name = "button16";
             button16.Size = new Size(21, 43);
@@ -1113,7 +1157,7 @@
             // 
             btnNegX1.BackColor = Color.Gray;
             btnNegX1.Cursor = Cursors.PanWest;
-            btnNegX1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnNegX1.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnNegX1.Location = new Point(65, 94);
             btnNegX1.Name = "btnNegX1";
             btnNegX1.Size = new Size(21, 87);
@@ -1126,7 +1170,7 @@
             // 
             btnNegX10.BackColor = Color.DarkGray;
             btnNegX10.Cursor = Cursors.PanWest;
-            btnNegX10.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnNegX10.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnNegX10.Location = new Point(44, 73);
             btnNegX10.Name = "btnNegX10";
             btnNegX10.Size = new Size(21, 130);
@@ -1139,7 +1183,7 @@
             // 
             btnNegX100.BackColor = Color.Silver;
             btnNegX100.Cursor = Cursors.PanWest;
-            btnNegX100.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnNegX100.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnNegX100.Location = new Point(22, 51);
             btnNegX100.Name = "btnNegX100";
             btnNegX100.Size = new Size(21, 173);
@@ -1152,7 +1196,7 @@
             // 
             btnNegY100.BackColor = Color.Silver;
             btnNegY100.Cursor = Cursors.PanSouth;
-            btnNegY100.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnNegY100.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnNegY100.Location = new Point(44, 224);
             btnNegY100.Name = "btnNegY100";
             btnNegY100.Size = new Size(171, 22);
@@ -1164,7 +1208,7 @@
             // 
             btnNegY10.BackColor = Color.DarkGray;
             btnNegY10.Cursor = Cursors.PanSouth;
-            btnNegY10.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnNegY10.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnNegY10.Location = new Point(65, 203);
             btnNegY10.Name = "btnNegY10";
             btnNegY10.Size = new Size(129, 22);
@@ -1176,7 +1220,7 @@
             // 
             btnNegY1.BackColor = Color.Gray;
             btnNegY1.Cursor = Cursors.PanSouth;
-            btnNegY1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnNegY1.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnNegY1.Location = new Point(82, 181);
             btnNegY1.Name = "btnNegY1";
             btnNegY1.Size = new Size(86, 22);
@@ -1188,7 +1232,7 @@
             // 
             btnNegY01.BackColor = Color.DimGray;
             btnNegY01.Cursor = Cursors.PanSouth;
-            btnNegY01.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnNegY01.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnNegY01.Location = new Point(108, 159);
             btnNegY01.Name = "btnNegY01";
             btnNegY01.Size = new Size(43, 22);
@@ -1199,7 +1243,7 @@
             // btnPosY100
             // 
             btnPosY100.BackColor = Color.Silver;
-            btnPosY100.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnPosY100.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnPosY100.Location = new Point(44, 29);
             btnPosY100.Name = "btnPosY100";
             btnPosY100.Size = new Size(171, 22);
@@ -1211,7 +1255,7 @@
             // btnPosY01
             // 
             btnPosY01.BackColor = Color.DimGray;
-            btnPosY01.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnPosY01.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnPosY01.Location = new Point(108, 94);
             btnPosY01.Name = "btnPosY01";
             btnPosY01.Size = new Size(43, 22);
@@ -1222,7 +1266,7 @@
             // btnPosY10
             // 
             btnPosY10.BackColor = Color.DarkGray;
-            btnPosY10.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnPosY10.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnPosY10.Location = new Point(65, 51);
             btnPosY10.Name = "btnPosY10";
             btnPosY10.Size = new Size(129, 22);
@@ -1234,7 +1278,7 @@
             // btnPosY1
             // 
             btnPosY1.BackColor = Color.Gray;
-            btnPosY1.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            btnPosY1.Font = new Font("Microsoft Yi Baiti", 8.25F, FontStyle.Bold);
             btnPosY1.Location = new Point(87, 73);
             btnPosY1.Name = "btnPosY1";
             btnPosY1.Size = new Size(86, 22);
@@ -1388,13 +1432,325 @@
             btnHomeY.Text = "Home Y";
             btnHomeY.UseVisualStyleBackColor = true;
             // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(grpBoxPins);
+            tabPage5.Controls.Add(grpMachineSettings);
+            tabPage5.Controls.Add(grpBoxSetHomeOffsets);
+            tabPage5.Controls.Add(grpBoxBLTouch);
+            tabPage5.Location = new Point(4, 22);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(566, 378);
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "Machine Settings";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // grpBoxPins
+            // 
+            grpBoxPins.Controls.Add(label19);
+            grpBoxPins.Controls.Add(label17);
+            grpBoxPins.Controls.Add(label14);
+            grpBoxPins.Controls.Add(label11);
+            grpBoxPins.Controls.Add(numericUpDown5);
+            grpBoxPins.Controls.Add(label8);
+            grpBoxPins.Controls.Add(numericUpDown4);
+            grpBoxPins.Controls.Add(label7);
+            grpBoxPins.Controls.Add(numericUpDown3);
+            grpBoxPins.Controls.Add(numericUpDown2);
+            grpBoxPins.Controls.Add(button3);
+            grpBoxPins.Controls.Add(numericUpDown1);
+            grpBoxPins.Controls.Add(radioButton1);
+            grpBoxPins.Controls.Add(radSetPinHigh);
+            grpBoxPins.Controls.Add(btnSetPinState);
+            grpBoxPins.Location = new Point(6, 277);
+            grpBoxPins.Name = "grpBoxPins";
+            grpBoxPins.Size = new Size(508, 95);
+            grpBoxPins.TabIndex = 5;
+            grpBoxPins.TabStop = false;
+            grpBoxPins.Text = "Pins (GPIO) ";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.ForeColor = Color.Red;
+            label19.Location = new Point(9, 17);
+            label19.Name = "label19";
+            label19.Size = new Size(106, 13);
+            label19.TabIndex = 14;
+            label19.Text = "Use with caution!";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(86, 41);
+            label17.Name = "label17";
+            label17.Size = new Size(13, 13);
+            label17.TabIndex = 13;
+            label17.Text = ">";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(86, 68);
+            label14.Name = "label14";
+            label14.Size = new Size(13, 13);
+            label14.TabIndex = 12;
+            label14.Text = ">";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(378, 68);
+            label11.Name = "label11";
+            label11.Size = new Size(66, 13);
+            label11.TabIndex = 11;
+            label11.Text = "milliseconds.";
+            // 
+            // numericUpDown5
+            // 
+            numericUpDown5.Location = new Point(329, 66);
+            numericUpDown5.Name = "numericUpDown5";
+            numericUpDown5.Size = new Size(43, 20);
+            numericUpDown5.TabIndex = 10;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(270, 66);
+            label8.Name = "label8";
+            label8.Size = new Size(60, 13);
+            label8.TabIndex = 9;
+            label8.Text = "times every";
+            // 
+            // numericUpDown4
+            // 
+            numericUpDown4.Location = new Point(222, 64);
+            numericUpDown4.Name = "numericUpDown4";
+            numericUpDown4.Size = new Size(43, 20);
+            numericUpDown4.TabIndex = 8;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(152, 68);
+            label7.Name = "label7";
+            label7.Size = new Size(16, 13);
+            label7.TabIndex = 7;
+            label7.Text = "to";
+            // 
+            // numericUpDown3
+            // 
+            numericUpDown3.Location = new Point(173, 64);
+            numericUpDown3.Name = "numericUpDown3";
+            numericUpDown3.Size = new Size(43, 20);
+            numericUpDown3.TabIndex = 6;
+            // 
+            // numericUpDown2
+            // 
+            numericUpDown2.Location = new Point(103, 64);
+            numericUpDown2.Name = "numericUpDown2";
+            numericUpDown2.Size = new Size(43, 20);
+            numericUpDown2.TabIndex = 5;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(9, 63);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 4;
+            button3.Text = "Toggle Pin";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(103, 37);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(43, 20);
+            numericUpDown1.TabIndex = 3;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
+            radioButton1.Location = new Point(222, 39);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(60, 17);
+            radioButton1.TabIndex = 2;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Low [0]";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radSetPinHigh
+            // 
+            radSetPinHigh.AutoSize = true;
+            radSetPinHigh.Location = new Point(154, 39);
+            radSetPinHigh.Name = "radSetPinHigh";
+            radSetPinHigh.Size = new Size(62, 17);
+            radSetPinHigh.TabIndex = 1;
+            radSetPinHigh.Text = "High [1]";
+            radSetPinHigh.UseVisualStyleBackColor = true;
+            // 
+            // btnSetPinState
+            // 
+            btnSetPinState.Location = new Point(9, 36);
+            btnSetPinState.Name = "btnSetPinState";
+            btnSetPinState.Size = new Size(75, 23);
+            btnSetPinState.TabIndex = 0;
+            btnSetPinState.Text = "Set Pin State";
+            btnSetPinState.UseVisualStyleBackColor = true;
+            btnSetPinState.Click += BtnSetPinState_Click;
+            // 
+            // grpMachineSettings
+            // 
+            grpMachineSettings.Controls.Add(btnFactoryReset);
+            grpMachineSettings.Controls.Add(btnSaveSettings);
+            grpMachineSettings.Controls.Add(btnRestoreSettings);
+            grpMachineSettings.Location = new Point(196, 3);
+            grpMachineSettings.Name = "grpMachineSettings";
+            grpMachineSettings.Size = new Size(200, 100);
+            grpMachineSettings.TabIndex = 4;
+            grpMachineSettings.TabStop = false;
+            grpMachineSettings.Text = "Machine Settings";
+            // 
+            // btnFactoryReset
+            // 
+            btnFactoryReset.Location = new Point(8, 77);
+            btnFactoryReset.Name = "btnFactoryReset";
+            btnFactoryReset.Size = new Size(75, 23);
+            btnFactoryReset.TabIndex = 2;
+            btnFactoryReset.Text = "Factory Reset";
+            btnFactoryReset.UseVisualStyleBackColor = true;
+            btnFactoryReset.Click += BtnFactoryReset_Click;
+            // 
+            // btnSaveSettings
+            // 
+            btnSaveSettings.Location = new Point(8, 47);
+            btnSaveSettings.Name = "btnSaveSettings";
+            btnSaveSettings.Size = new Size(75, 23);
+            btnSaveSettings.TabIndex = 1;
+            btnSaveSettings.Text = "Save Settings";
+            btnSaveSettings.UseVisualStyleBackColor = true;
+            btnSaveSettings.Click += BtnSaveSettings_Click;
+            // 
+            // btnRestoreSettings
+            // 
+            btnRestoreSettings.Location = new Point(8, 18);
+            btnRestoreSettings.Name = "btnRestoreSettings";
+            btnRestoreSettings.Size = new Size(75, 23);
+            btnRestoreSettings.TabIndex = 0;
+            btnRestoreSettings.Text = "Restore Settings";
+            btnRestoreSettings.UseVisualStyleBackColor = true;
+            btnRestoreSettings.Click += BtnRestoreSettings_Click;
+            // 
+            // grpBoxSetHomeOffsets
+            // 
+            grpBoxSetHomeOffsets.Controls.Add(txtBoxZHomeOffset);
+            grpBoxSetHomeOffsets.Controls.Add(txtBoxYHomeOffset);
+            grpBoxSetHomeOffsets.Controls.Add(txtBoxXHomeOffset);
+            grpBoxSetHomeOffsets.Controls.Add(button2);
+            grpBoxSetHomeOffsets.Controls.Add(button1);
+            grpBoxSetHomeOffsets.Controls.Add(btnSetXHome);
+            grpBoxSetHomeOffsets.Location = new Point(6, 94);
+            grpBoxSetHomeOffsets.Name = "grpBoxSetHomeOffsets";
+            grpBoxSetHomeOffsets.Size = new Size(184, 109);
+            grpBoxSetHomeOffsets.TabIndex = 3;
+            grpBoxSetHomeOffsets.TabStop = false;
+            grpBoxSetHomeOffsets.Text = "Set Home Offsets";
+            // 
+            // txtBoxZHomeOffset
+            // 
+            txtBoxZHomeOffset.Location = new Point(126, 79);
+            txtBoxZHomeOffset.Name = "txtBoxZHomeOffset";
+            txtBoxZHomeOffset.Size = new Size(49, 20);
+            txtBoxZHomeOffset.TabIndex = 5;
+            txtBoxZHomeOffset.Text = "0";
+            // 
+            // txtBoxYHomeOffset
+            // 
+            txtBoxYHomeOffset.Location = new Point(126, 50);
+            txtBoxYHomeOffset.Name = "txtBoxYHomeOffset";
+            txtBoxYHomeOffset.Size = new Size(49, 20);
+            txtBoxYHomeOffset.TabIndex = 4;
+            txtBoxYHomeOffset.Text = "0";
+            // 
+            // txtBoxXHomeOffset
+            // 
+            txtBoxXHomeOffset.Location = new Point(126, 20);
+            txtBoxXHomeOffset.Name = "txtBoxXHomeOffset";
+            txtBoxXHomeOffset.Size = new Size(49, 20);
+            txtBoxXHomeOffset.TabIndex = 3;
+            txtBoxXHomeOffset.Text = "0";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(6, 77);
+            button2.Name = "button2";
+            button2.Size = new Size(114, 23);
+            button2.TabIndex = 2;
+            button2.Text = "Set Z Home Offset";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += btnSetZHome_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(6, 48);
+            button1.Name = "button1";
+            button1.Size = new Size(114, 23);
+            button1.TabIndex = 1;
+            button1.Text = "Set Y Home Offset";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += btnSetYHome_Click;
+            // 
+            // btnSetXHome
+            // 
+            btnSetXHome.Location = new Point(6, 19);
+            btnSetXHome.Name = "btnSetXHome";
+            btnSetXHome.Size = new Size(114, 23);
+            btnSetXHome.TabIndex = 0;
+            btnSetXHome.Text = "Set X Home Offset";
+            btnSetXHome.UseVisualStyleBackColor = true;
+            btnSetXHome.Click += btnSetXHome_Click;
+            // 
+            // grpBoxBLTouch
+            // 
+            grpBoxBLTouch.Controls.Add(btnDeploy);
+            grpBoxBLTouch.Controls.Add(btnStow);
+            grpBoxBLTouch.Location = new Point(6, 6);
+            grpBoxBLTouch.Name = "grpBoxBLTouch";
+            grpBoxBLTouch.Size = new Size(184, 82);
+            grpBoxBLTouch.TabIndex = 2;
+            grpBoxBLTouch.TabStop = false;
+            grpBoxBLTouch.Text = "BLTouch";
+            // 
+            // btnDeploy
+            // 
+            btnDeploy.Location = new Point(9, 19);
+            btnDeploy.Name = "btnDeploy";
+            btnDeploy.Size = new Size(75, 23);
+            btnDeploy.TabIndex = 0;
+            btnDeploy.Text = "Deploy";
+            btnDeploy.UseVisualStyleBackColor = true;
+            btnDeploy.Click += BtnDeploy_Click;
+            // 
+            // btnStow
+            // 
+            btnStow.Location = new Point(9, 48);
+            btnStow.Name = "btnStow";
+            btnStow.Size = new Size(75, 23);
+            btnStow.TabIndex = 1;
+            btnStow.Text = "Stow";
+            btnStow.UseVisualStyleBackColor = true;
+            btnStow.Click += BtnStow_Click;
+            // 
             // pnlWelcome
             // 
             pnlWelcome.BackColor = SystemColors.ControlDarkDark;
             pnlWelcome.BorderStyle = BorderStyle.Fixed3D;
             pnlWelcome.Controls.Add(label6);
             pnlWelcome.Controls.Add(lblWelcome);
-            pnlWelcome.Location = new Point(687, 57);
+            pnlWelcome.Location = new Point(826, 57);
             pnlWelcome.Name = "pnlWelcome";
             pnlWelcome.Size = new Size(40, 46);
             pnlWelcome.TabIndex = 45;
@@ -1431,7 +1787,7 @@
             grpBoxPositionReadout.Controls.Add(btnZeroY);
             grpBoxPositionReadout.Controls.Add(btnZeroX);
             grpBoxPositionReadout.ForeColor = SystemColors.ControlText;
-            grpBoxPositionReadout.Location = new Point(449, 10);
+            grpBoxPositionReadout.Location = new Point(588, 10);
             grpBoxPositionReadout.Name = "grpBoxPositionReadout";
             grpBoxPositionReadout.Size = new Size(232, 111);
             grpBoxPositionReadout.TabIndex = 2;
@@ -1594,7 +1950,7 @@
             grpBoxAccessoryControl.Enabled = false;
             grpBoxAccessoryControl.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             grpBoxAccessoryControl.ForeColor = SystemColors.ControlText;
-            grpBoxAccessoryControl.Location = new Point(449, 127);
+            grpBoxAccessoryControl.Location = new Point(588, 127);
             grpBoxAccessoryControl.Name = "grpBoxAccessoryControl";
             grpBoxAccessoryControl.Size = new Size(318, 167);
             grpBoxAccessoryControl.TabIndex = 3;
@@ -1802,7 +2158,7 @@
             grpBoxCustomCommands.Enabled = false;
             grpBoxCustomCommands.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             grpBoxCustomCommands.ForeColor = SystemColors.ControlText;
-            grpBoxCustomCommands.Location = new Point(449, 300);
+            grpBoxCustomCommands.Location = new Point(588, 300);
             grpBoxCustomCommands.Name = "grpBoxCustomCommands";
             grpBoxCustomCommands.Size = new Size(318, 100);
             grpBoxCustomCommands.TabIndex = 4;
@@ -1872,7 +2228,7 @@
             // button52
             // 
             button52.Font = new Font("Candara", 9F);
-            button52.Location = new Point(602, 450);
+            button52.Location = new Point(741, 450);
             button52.Name = "button52";
             button52.Size = new Size(7, 7);
             button52.TabIndex = 5;
@@ -1896,7 +2252,7 @@
             grpBoxOverrideSettings.Enabled = false;
             grpBoxOverrideSettings.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             grpBoxOverrideSettings.ForeColor = SystemColors.ControlText;
-            grpBoxOverrideSettings.Location = new Point(449, 406);
+            grpBoxOverrideSettings.Location = new Point(588, 406);
             grpBoxOverrideSettings.Name = "grpBoxOverrideSettings";
             grpBoxOverrideSettings.Size = new Size(318, 125);
             grpBoxOverrideSettings.TabIndex = 6;
@@ -2040,11 +2396,11 @@
             // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, toolStripStatusLabel2 });
             statusStrip1.Location = new Point(0, 533);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(1, 0, 12, 0);
-            statusStrip1.Size = new Size(776, 22);
+            statusStrip1.Size = new Size(948, 22);
             statusStrip1.TabIndex = 7;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -2054,10 +2410,16 @@
             toolStripStatusLabel1.Size = new Size(79, 17);
             toolStripStatusLabel1.Text = "Disconnected";
             // 
+            // toolStripStatusLabel2
+            // 
+            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            toolStripStatusLabel2.Size = new Size(72, 17);
+            toolStripStatusLabel2.Text = "Version 1.0.0";
+            // 
             // grpBoxPrintTime
             // 
             grpBoxPrintTime.Controls.Add(lblPrintTimer);
-            grpBoxPrintTime.Location = new Point(687, 10);
+            grpBoxPrintTime.Location = new Point(826, 10);
             grpBoxPrintTime.Name = "grpBoxPrintTime";
             grpBoxPrintTime.Size = new Size(86, 41);
             grpBoxPrintTime.TabIndex = 8;
@@ -2077,7 +2439,7 @@
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(776, 555);
+            ClientSize = new Size(948, 555);
             Controls.Add(pnlWelcome);
             Controls.Add(grpBoxPrintTime);
             Controls.Add(statusStrip1);
@@ -2093,7 +2455,7 @@
             MinimizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Printer Controller";
+            Text = "Machine Controller";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             grpBoxInitialization.ResumeLayout(false);
@@ -2115,6 +2477,18 @@
             ((System.ComponentModel.ISupportInitialize)nudExtruder).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudZAxis).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudXYAxis).EndInit();
+            tabPage5.ResumeLayout(false);
+            grpBoxPins.ResumeLayout(false);
+            grpBoxPins.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            grpMachineSettings.ResumeLayout(false);
+            grpBoxSetHomeOffsets.ResumeLayout(false);
+            grpBoxSetHomeOffsets.PerformLayout();
+            grpBoxBLTouch.ResumeLayout(false);
             pnlWelcome.ResumeLayout(false);
             pnlWelcome.PerformLayout();
             grpBoxPositionReadout.ResumeLayout(false);
@@ -2314,5 +2688,37 @@
         private GroupBox grpBoxPrintTime;
         private Label lblPrintTimer;
         private Controls.TemperatureChart temperatureChart1;
+        private ToolStripStatusLabel toolStripStatusLabel2;
+        private TabPage tabPage5;
+        private Button btnDeploy;
+        private Button btnStow;
+        private GroupBox grpBoxSetHomeOffsets;
+        private Button btnSetXHome;
+        private GroupBox grpBoxBLTouch;
+        private TextBox txtBoxZHomeOffset;
+        private TextBox txtBoxYHomeOffset;
+        private TextBox txtBoxXHomeOffset;
+        private Button button2;
+        private Button button1;
+        private GroupBox grpMachineSettings;
+        private Button btnRestoreSettings;
+        private Button btnSaveSettings;
+        private Button btnFactoryReset;
+        private GroupBox grpBoxPins;
+        private Button btnSetPinState;
+        private Button button3;
+        private NumericUpDown numericUpDown1;
+        private RadioButton radioButton1;
+        private RadioButton radSetPinHigh;
+        private Label label17;
+        private Label label14;
+        private Label label11;
+        private NumericUpDown numericUpDown5;
+        private Label label8;
+        private NumericUpDown numericUpDown4;
+        private Label label7;
+        private NumericUpDown numericUpDown3;
+        private NumericUpDown numericUpDown2;
+        private Label label19;
     }
 }
