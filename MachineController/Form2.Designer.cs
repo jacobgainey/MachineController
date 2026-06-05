@@ -28,25 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnSend = new Button();
             btnClose = new Button();
-            txtBoxSend = new TextBox();
-            groupBox1 = new GroupBox();
-            groupBox1.SuspendLayout();
+            textBox2 = new TextBox();
+            textBox1 = new TextBox();
+            label1 = new Label();
+            BtnSave = new Button();
             SuspendLayout();
-            // 
-            // btnSend
-            // 
-            btnSend.Location = new Point(350, 227);
-            btnSend.Name = "btnSend";
-            btnSend.Size = new Size(75, 23);
-            btnSend.TabIndex = 2;
-            btnSend.Text = "Send";
-            btnSend.UseVisualStyleBackColor = true;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(431, 227);
+            btnClose.Location = new Point(268, 248);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(75, 23);
             btnClose.TabIndex = 3;
@@ -54,47 +45,70 @@
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += BtnClose_Click;
             // 
-            // txtBoxSend
+            // textBox2
             // 
-            txtBoxSend.Location = new Point(6, 22);
-            txtBoxSend.Multiline = true;
-            txtBoxSend.Name = "txtBoxSend";
-            txtBoxSend.Size = new Size(488, 181);
-            txtBoxSend.TabIndex = 0;
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.Font = new Font("Courier New", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox2.Location = new Point(12, 41);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(331, 201);
+            textBox2.TabIndex = 0;
             // 
-            // groupBox1
+            // textBox1
             // 
-            groupBox1.Controls.Add(txtBoxSend);
-            groupBox1.Location = new Point(12, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(500, 209);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Add commands to the text box and click send.";
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Location = new Point(243, 12);
+            textBox1.MaxLength = 50;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 4;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 14);
+            label1.Name = "label1";
+            label1.Size = new Size(198, 15);
+            label1.TabIndex = 5;
+            label1.Text = "Name of the Macro (Max Length 50)";
+            // 
+            // BtnSave
+            // 
+            BtnSave.Location = new Point(187, 248);
+            BtnSave.Name = "BtnSave";
+            BtnSave.Size = new Size(75, 23);
+            BtnSave.TabIndex = 6;
+            BtnSave.Text = "Save";
+            BtnSave.UseVisualStyleBackColor = true;
+            BtnSave.Click += BtnSave_Click;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(523, 259);
+            ClientSize = new Size(355, 279);
+            Controls.Add(BtnSave);
+            Controls.Add(label1);
+            Controls.Add(textBox1);
+            Controls.Add(textBox2);
             Controls.Add(btnClose);
-            Controls.Add(btnSend);
-            Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "Form2";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Send Multiple Commands";
+            Text = "Edit Macro";
+            FormClosing += Form2_FormClosing;
             Load += Form2_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-        private Button btnSend;
         private Button btnClose;
-        private TextBox txtBoxSend;
-        private GroupBox groupBox1;
+        private TextBox textBox2;
+        private TextBox textBox1;
+        private Label label1;
+        private Button BtnSave;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.IO.Ports;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MachineController.Functions
 {
@@ -7,7 +8,7 @@ namespace MachineController.Functions
     public abstract class SerialConnection
     {
         private SerialPort? port = null;
-        public bool IsConnected = false;
+        public bool IsConnected { get; private set; } = false;
         public string? PortName;
         public int? BaudRate;
 
@@ -31,7 +32,7 @@ namespace MachineController.Functions
             return tools;
         }
 
-        public void ConnectToComPort()
+        public bool ConnectToComPort()
         {
             try
             {
@@ -42,13 +43,17 @@ namespace MachineController.Functions
                     WriteTimeout = 500,
                 };
                 port.DataReceived += new SerialDataReceivedEventHandler(OnDataReceived);
+                port.DtrEnable = true;
+                port.RtsEnable = true;
                 port.Open();
 
                 IsConnected = true;
+                return true;
             }
             catch (Exception ex)
             {
                 GenericFunctions.ShowErrorMessage(ex);
+                return false;
             }
         }
 
@@ -75,7 +80,7 @@ namespace MachineController.Functions
             {
                 if (port != null) 
                 {
-                    port.Write($"{data.ToUpper().TrimStart().TrimEnd()} {append}");
+                    port.Write($"{data.Trim()} {append}");
                 }
                 else
                 {
@@ -94,9 +99,9 @@ namespace MachineController.Functions
             {
                 if (port != null) 
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(5);
                     string data = port.ReadLine();
-                    SendMessage(data);
+                    SendMessage(data.Trim());
                 }
                 else
                 {
@@ -119,10 +124,10 @@ namespace MachineController.Functions
             this.write = write;
         }
 
-        public void Connect()
+        public bool Connect()
         {
             //SendMessage("Connecting to Machine");
-            ConnectToComPort();
+            return ConnectToComPort();
         }
 
         public void Disconnect()
@@ -133,7 +138,7 @@ namespace MachineController.Functions
 
         public void Send(string data)
         {
-            SendMessage($"[send] {data}");
+            //SendMessage(data);
             SendDataToMachine(data);
         }
 

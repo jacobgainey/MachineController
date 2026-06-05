@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineController", "MachineController\MachineController.csproj", "{9B6F8896-6490-4F97-86F8-C972872D70B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{68B26EBD-9AF2-46E7-9A00-13CA1B5E912D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +15,11 @@ Global
 		{9B6F8896-6490-4F97-86F8-C972872D70B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B6F8896-6490-4F97-86F8-C972872D70B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B6F8896-6490-4F97-86F8-C972872D70B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68B26EBD-9AF2-46E7-9A00-13CA1B5E912D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68B26EBD-9AF2-46E7-9A00-13CA1B5E912D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68B26EBD-9AF2-46E7-9A00-13CA1B5E912D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68B26EBD-9AF2-46E7-9A00-13CA1B5E912D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5231D904-82F4-43A4-A716-A16808BE0923}
 	EndGlobalSection
 EndGlobal

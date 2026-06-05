@@ -8,7 +8,28 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\estop.png" />
+    <None Remove="Resources\led_0.png" />
+    <None Remove="Resources\led_1.png" />
+    <None Remove="Resources\pow_0.png" />
+    <None Remove="Resources\pow_1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\estop.png" />
+    <EmbeddedResource Include="Resources\led_0.png" />
+    <EmbeddedResource Include="Resources\led_1.png" />
+    <EmbeddedResource Include="Resources\pow_0.png" />
+    <EmbeddedResource Include="Resources\pow_1.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.7" />
@@ -20,6 +41,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -33,6 +59,10 @@
   <ItemGroup>
     <None Update="Fonts\digital-7.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

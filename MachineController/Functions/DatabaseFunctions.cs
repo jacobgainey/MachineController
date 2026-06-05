@@ -26,23 +26,23 @@ namespace MachineController.Functions
             }
         }
 
-        public static void ExecuteQueryWithSQL(string commandText)
-        {
-            try
-            {
-                using var connection = new SqliteConnection(database);
-                connection.Open();
+        //public static void ExecuteQueryWithSQL(string commandText)
+        //{
+        //    try
+        //    {
+        //        using var connection = new SqliteConnection(database);
+        //        connection.Open();
 
-                using var command = connection.CreateCommand();
-                command.CommandText = commandText;
-                using SqliteDataReader reader = command.ExecuteReader();
+        //        using var command = connection.CreateCommand();
+        //        command.CommandText = commandText;
+        //        using SqliteDataReader reader = command.ExecuteReader();
 
-            }
-            catch (Exception ex)
-            {
-                GenericFunctions.ShowErrorMessage(ex);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        GenericFunctions.ShowErrorMessage(ex);
+        //    }
+        //}
 
         public static void CreateDatabase()
         {
@@ -73,9 +73,72 @@ namespace MachineController.Functions
                             [type] TEXT NOT NULL,
                             [data] TEXT NOT NULL,
                             [timestamp] TEXT NOT NULL
+                        );
+                        CREATE TABLE IF NOT EXISTS [macros] (
+                            [id] INTEGER PRIMARY KEY AUTOINCREMENT,
+                            [name] TEXT,
+                            [gcode] TEXT
                         );";
                     ExecuteNonQueryWithSQL(sql);
                 }
+            }
+            catch (Exception ex)
+            {
+                GenericFunctions.ShowErrorMessage(ex);
+            }
+        }
+
+        public static Macro GetMacroGcode(int id)
+        {
+            Macro macro = new();
+            try
+            {
+                using var connection = new SqliteConnection(database);
+                connection.Open();
+
+                SqliteCommand command = connection.CreateCommand();
+                command.CommandText = $"SELECT [id], [name], [gcode] FROM [macros] WHERE id = {id}";
+
+                using SqliteDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        macro.Id = Convert.ToInt32(reader.GetString(0));
+                        macro.Name = reader.GetString(1);
+                        macro.Gcode = reader.GetString(2);
+
+                        continue;
+                    }
+                }
+                else
+                {
+                    // If the setting does not exist, create it with the provided value
+                    macro.Id = id;
+                    macro.Name = $"Macro {id}";
+                    macro.Gcode = string.Empty;
+
+                    ExecuteNonQueryWithSQL($"INSERT INTO [macros] ([id], [name]) VALUES({macro.Id}, '{macro.Name}')");
+
+                }
+                return macro;
+            }
+            catch (Exception ex)
+            {
+                GenericFunctions.ShowErrorMessage(ex);
+                return macro;
+            }
+        }
+
+        public static void SetMacroGcode(int id, string name, string gcode)
+        {
+            try
+            {
+                using var connection = new SqliteConnection(database);
+                    connection.Open();
+
+                    SqliteCommand command = connection.CreateCommand();
+                        ExecuteNonQueryWithSQL($"UPDATE [macros] SET [name] = '{name}', [gcode] = '{gcode}' WHERE [id] = {id}");
             }
             catch (Exception ex)
             {
